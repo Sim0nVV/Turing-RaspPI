@@ -1,0 +1,1 @@
+("7.2" racket ("29d242fca775c8ab5a5a82b1e3d076e4122e1a2f" . "8b4495ea2a89451ecc6e6843a1e3e0bcfc5e516b") #"/Users/macbookpro/Documents/VUB/Jaar 1/Sem 2/Besturingssytemen /PI/WPO-Pi-Oefeningen/Project/raspi-gpio.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

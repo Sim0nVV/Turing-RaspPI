@@ -1,0 +1,1 @@
+("7.2" racket ("ba9850dff33b1eecb2d14d530336b7d6f10538bc" . "1bb5531e62cedbad8c39c5b14ccbd602cf41daf4") #"/Users/macbookpro/Documents/VUB/Jaar 1/Sem 2/Besturingssytemen /PI/WPO-Pi-Oefeningen/Project/abstractie-led.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))
