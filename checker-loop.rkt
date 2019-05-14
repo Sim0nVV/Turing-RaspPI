@@ -1,7 +1,5 @@
 #lang racket
 
-
-
 (require "abstractie-buttons.rkt")
 
 (require "raspi-gpio.rkt")
@@ -14,23 +12,36 @@
 
 (define knoppen-lijst (mk-knoppen PIN1 PIN2 PIN3))
 
-(let loop
-  ((pauze? #t)
-   (pushed-button (knoppen-lijst 'check)))
-  
-  (when (eq? pushed-button 'pauze) 
-    (set! pauze? #t))
 
+(define (loops)
+  (define (loop-pauze pauze? pushed-button)
+    
+    (when (eq? pushed-button 'pauze) 
+      (set! pauze? #t))
+
+    (if (eq? pushed-button 'run)
+               (begin (knoppen-lijst 'step)
+                      (set! pauze? #f)) 
+               ((knoppen-lijst 'write/left/right/step) pushed-button))  
+
+    (gpio-delay-ms 1000)
+
+    (input-loop pauze?))
   
-  (if pauze?
-      (if (eq? pushed-button 'run)
-          (begin (knoppen-lijst 'step)
-                 (loop #f))
-          ((knoppen-lijst 'write/left/right/step) pushed-button))
-        (knoppen-lijst 'step))
+  (define (input-loop pauze?)
+    (let ((pushed-button? (knoppen-lijst 'check)))
+      (when pushed-button?
+          (if pauze?
+              (loop-pauze #f pushed-button?)
+              (unless (knoppen-lijst 'finished?) 
+                ((gpio-delay-ms 1000)
+                 (knoppen-lijst 'step)
+                 (input-loop pauze?)))))
+
+      (gpio-delay-ms
+      (input-loop pauze?))))
+
+  (input-loop #f))
+          
     
 
-  (gpio-delay-ms 1000)
-
-  (unless (knoppen-lijst 'finished?)
-    (loop pauze? (knoppen-lijst 'check))))

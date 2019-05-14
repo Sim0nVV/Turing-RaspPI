@@ -26,7 +26,8 @@
                     'B
                     '(#(q0 1 1 right q0)
                       #(q0 B 1 stay  qf))))
-        (finished? #f))
+        (finished? #f)
+        (mode1? #t))
 
 
     (define (check)
@@ -52,7 +53,7 @@
             ((button3 'pushed?)
              (displayln "right")
              'right)
-            (else 'empty)))
+            (else #f)))
             
 
     (define (step)
@@ -69,10 +70,8 @@
               (displayln "no button pushed"))))
       
 
-    (define (init)
+    (let init ()
       (tm 'reset '(1 1 1)))
-
-    (init)
     
       
     (define (dispatch msg)
