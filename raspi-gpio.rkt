@@ -193,7 +193,7 @@
     (gpio-mcp3008-setup spi-channel)
     (gpio-mcp3008-analog-read spi-channel channel-config analog-channel))
 
-(define (mk-led PIN)
+#;(define (mk-led PIN)
   (let ((on? #f))
     
     (define (on)

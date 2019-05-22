@@ -26,8 +26,7 @@
                     'B
                     '(#(q0 1 1 right q0)
                       #(q0 B 1 stay  qf))))
-        (finished? #f)
-        (mode1? #t))
+        (finished? #f))
 
 
     (define (check)
@@ -41,12 +40,11 @@
              'run) ;hoe laat je die loop gebeuren en eindigen (in deze file of in abstractie-buttons?)
             ((and (button3 'pushed?)
                   (button2 'pushed?))
-             (displayln "write")
-             'write)
+             (displayln "write!")
+             'write!)
             ((button1 'pushed?)
              (displayln "left")
              'left)
-
             ((button2 'pushed?)
              (displayln "step")
              'step)
@@ -57,13 +55,14 @@
             
 
     (define (step)
+      (displayln 'step)
       (if (tm 'finished?)
           (begin (displayln "Turing Machine is finished")
                  (set! finished? #t))
           (tm 'step)))
 
     (define (write/left/right/step button)
-      (if (ormap (lambda (x) (eq? button x)) (list 'write 'left 'right))
+      (if (ormap (lambda (x) (eq? button x)) (list 'write! 'left 'right))
           (tm button)
           (if (eq? 'step button)
               (step)
