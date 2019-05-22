@@ -55,11 +55,10 @@
             
 
     (define (step)
-      (displayln 'step)
-      (if (tm 'finished?)
-          (begin (displayln "Turing Machine is finished")
-                 (set! finished? #t))
-          (tm 'step)))
+      (cond ((tm 'finished?)
+             (displayln "Turing Machine is finished")
+             (set! finished? #t))
+          (else (displayln 'step)(tm 'step))))
 
     (define (write/left/right/step button)
       (if (ormap (lambda (x) (eq? button x)) (list 'write! 'left 'right))

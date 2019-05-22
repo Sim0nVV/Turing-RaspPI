@@ -15,8 +15,8 @@
 
 (define (loops)
   (define (loop-pauze pauze? pushed-button)
-    
-    (when (eq? pushed-button 'pauze) 
+
+    (when (eq? pushed-button 'pauze)
       (set! pauze? #t))
 
     (when (eq? pushed-button 'run)
@@ -26,26 +26,23 @@
       ((left right step write!)
                ((knoppen-lijst 'write/left/right/step) pushed-button)))  
 
-    (gpio-delay-ms 1000)
+    (gpio-delay-ms 500)
 
     (input-loop pauze?))
   
   (define (input-loop pauze?)
     (let ((pushed-button? (knoppen-lijst 'check))) ;de pauze check moet voor pushed-button komen
-
-      (if pauze?
-          (when pushed-button?
-            (loop-pauze #t pushed-button?))
-          (if (eq? knoppen-lijst 'pauze)
-              (set! pauze? #t)
-              (unless (knoppen-lijst 'finished?)
-                (gpio-delay-ms 1000)
-                (knoppen-lijst 'step)
-                (input-loop pauze?))))
-
-      (gpio-delay-ms 100)
       (unless (knoppen-lijst 'finished?)
-        (input-loop pauze?)))) ;zet pauze-check op deze lijn (hoe zou je de run laten werken?)
+        (if pauze?
+            (when pushed-button?
+              (loop-pauze #t pushed-button?))
+            (if (eq? pushed-button? 'pauze)
+                (loop-pauze #t pushed-button?)
+                (begin 
+                  (knoppen-lijst 'step)
+                  (gpio-delay-ms 2000))))
+        (gpio-delay-ms 100)
+        (input-loop pauze?))))  ;zet pauze-check op deze lijn (hoe zou je de run laten werken?)
 
   (input-loop #t))
 
