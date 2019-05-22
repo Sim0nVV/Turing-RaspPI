@@ -35,12 +35,13 @@
 
       (if pauze?
           (when pushed-button?
-              (loop-pauze #t pushed-button?))
-          (unless (knoppen-lijst 'finished?)
-            (gpio-delay-ms 1000)
-            (displayln 'step)
-            (knoppen-lijst 'step)
-            (input-loop pauze?)))
+            (loop-pauze #t pushed-button?))
+          (if (eq? knoppen-lijst 'pauze)
+              (set! pauze? #t)
+              (unless (knoppen-lijst 'finished?)
+                (gpio-delay-ms 1000)
+                (knoppen-lijst 'step)
+                (input-loop pauze?))))
 
       (gpio-delay-ms 100)
       (unless (knoppen-lijst 'finished?)
