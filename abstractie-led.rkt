@@ -27,11 +27,11 @@
 
     (init)
 
-    (define (dispatch msg)
+    (define (dispatch-led msg)
       (case msg
         ('on (on))
         ('off (off))
         ('toggle (toggle))
         ('state (if on? 'on 'off))))
     
-    dispatch))
+    dispatch-led))

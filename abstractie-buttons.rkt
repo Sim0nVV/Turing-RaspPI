@@ -37,7 +37,7 @@
             ((and (button1 'pushed?)
                   (button3 'pushed?))
              (displayln "run")
-             'run) ;hoe laat je die loop gebeuren en eindigen (in deze file of in abstractie-buttons?)
+             'run) 
             ((and (button3 'pushed?)
                   (button2 'pushed?))
              (displayln "write!")

@@ -14,7 +14,7 @@
 
 
 (define (loops)
-  (define (loop-pauze pauze? pushed-button)
+  (define (feedback-loop pauze? pushed-button)
 
     (when (eq? pushed-button 'pauze)
       (set! pauze? #t))
@@ -24,8 +24,8 @@
 
     (case pushed-button
       ((left right step write!)
-               ((knoppen-lijst 'write/left/right/step) pushed-button)))  
-
+       ((knoppen-lijst 'write/left/right/step) pushed-button)))
+    
     (gpio-delay-ms 500)
 
     (input-loop pauze?))
@@ -35,9 +35,9 @@
       (unless (knoppen-lijst 'finished?)
         (if pauze?
             (when pushed-button?
-              (loop-pauze #t pushed-button?))
+              (feedback-loop #t pushed-button?))
             (if (eq? pushed-button? 'pauze)
-                (loop-pauze #t pushed-button?)
+                (feedback-loop #t pushed-button?)
                 (begin 
                   (knoppen-lijst 'step)
                   (gpio-delay-ms 2000))))

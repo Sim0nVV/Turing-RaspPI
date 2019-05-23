@@ -111,9 +111,12 @@
           'off
           'on))
 
+
+    (define head-offset 4)
+    
     (define (list-leds)
       (define lijst-symbolen '())
-      (do ([pos (- head 4) (+ pos 1)])
+      (do ([pos (- head head-offset) (+ pos 1)])
         ((= (length lijst-symbolen) 10)
          (reverse lijst-symbolen))
         (set! lijst-symbolen (cons (led-value
